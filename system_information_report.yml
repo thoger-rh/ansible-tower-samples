@@ -16,7 +16,8 @@
 
     - name: Install required packages
       ansible.builtin.command: microdnf install -y hostname iproute
-      change_when: false
+      register: dnf_install_res
+      changed_when: false
 
     - name: Run hostname command
       ansible.builtin.command: hostname
