@@ -13,6 +13,23 @@
 #          - "Hostname: {{ ansible_hostname }}"
 #          - "IPv4 Addresses: {{ ansible_all_ipv4_addresses }}"
 
+    - name: Run hostname command
+      ansible.builtin.command: hostname
+      register: hostname_res
+      changed_when: false
+
+    - name: Print Hostname
+      ansible.builtin.debug:
+        msg: "The hostname is: {{ hostname_res.stdout }}"
+
+    - name: Run ip addr show command
+      ansible.builtin.command: ip addr show
+      register: ip_addr_res
+      changed_when: false
+
+    - name: Print IP Address Details
+      ansible.builtin.debug:
+        var: ip_addr_res.stdout_lines
     - name: Get uname -a output
       command: uname -a
       register: uname_output
