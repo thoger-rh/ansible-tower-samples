@@ -37,6 +37,15 @@
 #      ansible.builtin.debug:
 #        var: ip_addr_res.stdout_lines
 
+    - name: Get id output
+      command: id
+      register: id_output
+      changed_when: false
+
+    - name: Display id output
+      debug:
+        var: id_output.stdout
+
     - name: Get uname -a output
       command: uname -a
       register: uname_output
