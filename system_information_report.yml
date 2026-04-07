@@ -1,0 +1,19 @@
+---
+- name: System Information Report
+  hosts: all
+  gather_facts: yes
+  tasks:
+    - name: Display Hostname and IP Addresses
+      debug:
+        msg: 
+          - "Hostname: {{ ansible_hostname }}"
+          - "IPv4 Addresses: {{ ansible_all_ipv4_addresses }}"
+
+    - name: Get uname -a output
+      command: uname -a
+      register: uname_output
+      changed_when: false
+
+    - name: Display uname output
+      debug:
+        var: uname_output.stdout
