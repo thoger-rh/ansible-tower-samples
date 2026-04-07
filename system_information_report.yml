@@ -7,11 +7,11 @@
       ansible.builtin.debug:
         var: ansible_facts
 
-    - name: Display Hostname and IP Addresses
-      debug:
-        msg: 
-          - "Hostname: {{ ansible_hostname }}"
-          - "IPv4 Addresses: {{ ansible_all_ipv4_addresses }}"
+#    - name: Display Hostname and IP Addresses
+#      debug:
+#        msg: 
+#          - "Hostname: {{ ansible_hostname }}"
+#          - "IPv4 Addresses: {{ ansible_all_ipv4_addresses }}"
 
     - name: Get uname -a output
       command: uname -a
