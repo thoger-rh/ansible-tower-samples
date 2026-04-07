@@ -13,6 +13,11 @@
 #          - "Hostname: {{ ansible_hostname }}"
 #          - "IPv4 Addresses: {{ ansible_all_ipv4_addresses }}"
 
+
+    - name: Install required packages
+      ansible.builtin.command: microdnf install -y hostname iproute
+      change_when: false
+
     - name: Run hostname command
       ansible.builtin.command: hostname
       register: hostname_res
