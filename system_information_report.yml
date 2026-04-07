@@ -3,6 +3,10 @@
   hosts: all
   gather_facts: yes
   tasks:
+    - name: Dump all available facts
+      ansible.builtin.debug:
+        var: ansible_facts
+
     - name: Display Hostname and IP Addresses
       debug:
         msg: 
