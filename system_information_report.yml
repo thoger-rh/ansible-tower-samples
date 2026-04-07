@@ -14,28 +14,29 @@
 #          - "IPv4 Addresses: {{ ansible_all_ipv4_addresses }}"
 
 
-    - name: Install required packages
-      ansible.builtin.command: microdnf install -y hostname iproute
-      register: dnf_install_res
-      changed_when: false
+#    - name: Install required packages
+#      ansible.builtin.command: microdnf install -y hostname iproute
+#      register: dnf_install_res
+#      changed_when: false
+#
+#    - name: Run hostname command
+#      ansible.builtin.command: hostname
+#      register: hostname_res
+#      changed_when: false
+#
+#    - name: Print Hostname
+#      ansible.builtin.debug:
+#        msg: "The hostname is: {{ hostname_res.stdout }}"
+#
+#    - name: Run ip addr show command
+#      ansible.builtin.command: ip addr show
+#      register: ip_addr_res
+#      changed_when: false
+#
+#    - name: Print IP Address Details
+#      ansible.builtin.debug:
+#        var: ip_addr_res.stdout_lines
 
-    - name: Run hostname command
-      ansible.builtin.command: hostname
-      register: hostname_res
-      changed_when: false
-
-    - name: Print Hostname
-      ansible.builtin.debug:
-        msg: "The hostname is: {{ hostname_res.stdout }}"
-
-    - name: Run ip addr show command
-      ansible.builtin.command: ip addr show
-      register: ip_addr_res
-      changed_when: false
-
-    - name: Print IP Address Details
-      ansible.builtin.debug:
-        var: ip_addr_res.stdout_lines
     - name: Get uname -a output
       command: uname -a
       register: uname_output
@@ -44,3 +45,14 @@
     - name: Display uname output
       debug:
         var: uname_output.stdout
+
+    - name: Run local_ips.py on managed hosts
+      ansible.builtin.script:
+        cmd: files/local_ips.py
+        executable: python3
+      register: ip_output
+      changed_when: false
+
+    - name: Display IP addresses
+      ansible.builtin.debug:
+        msg: "{{ ip_output.stdout_lines }}"
