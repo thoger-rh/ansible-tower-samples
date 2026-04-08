@@ -5,7 +5,7 @@
 
 - name: Run nmap against {{ target }}
   ansible.builtin.command:
-    cmd: nmap -sT -sV --version-light {{ target }}
+    cmd: nmap -sT -sV --version-light -p 27199 {{ target }}
   register: nmap_result
   changed_when: false
 
