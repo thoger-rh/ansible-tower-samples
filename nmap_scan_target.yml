@@ -1,0 +1,14 @@
+---
+- name: "Scanning: {{ target }}"
+  ansible.builtin.debug:
+    msg: "Scanning: {{ target }}"
+
+- name: Run nmap against {{ target }}
+  ansible.builtin.command:
+    cmd: nmap -sT -sV {{ target }}
+  register: nmap_result
+  changed_when: false
+
+- name: nmap output for {{ target }}
+  ansible.builtin.debug:
+    msg: "{{ nmap_result.stdout }}"

@@ -1,22 +1,11 @@
 ---
 - name: nmap scan
-  hosts: all
+  hosts: localhost
   gather_facts: no
 
   tasks:
-    - name: Targets
-      include_tasks: 
-        content:
-          - name: "Print target"
-            debug:
-              msg: "Target: {{ item }}"
-
-          - name: "Run scan"
-            command: "nmap -sT -sV {{ item }}"
-            register: nmap_res
-            changed_when: false
-
-          - name: "Print report"
-            debug:
-              msg: "Scan output: {{ echo_res.stdout }}"
+    - name: Scan each target
+      ansible.builtin.include_tasks: nmap_scan_target.yml
       loop: "{{ targets }}"
+      loop_control:
+        loop_var: target
